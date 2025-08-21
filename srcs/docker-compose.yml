@@ -1,0 +1,126 @@
+services:
+  mariadb:
+    build:
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    container_name: mariadb
+    env_file: .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - inception
+    restart: unless-stopped
+    expose:
+      - "3306"
+
+  wordpress:
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    container_name: wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+    restart: on-failure
+    expose:
+      - "9000"
+
+  nginx:
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    env_file: .env
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+    ports:
+      - "0.0.0.0:443:443"
+    restart: on-failure
+
+  adminer:
+    build:
+      context: requirements/adminer
+      dockerfile: Dockerfile
+    container_name: adminer
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  redis:
+    build:
+      context: requirements/redis
+      dockerfile: Dockerfile
+    container_name: redis
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    restart: unless-stopped
+    expose:
+      - "6379"
+
+  ftp:
+    build:
+      context: requirements/ftp
+      dockerfile: Dockerfile
+    container_name: ftp
+    volumes:
+      - wordpress:/home/ftpuser/wordpress
+    networks:
+      - inception
+    ports:
+      - "21:21"
+      - "21100-21110:21100-21110"
+    restart: unless-stopped
+
+  static-site:
+    build:
+      context: requirements/static-site
+      dockerfile: Dockerfile
+    container_name: static-site
+    networks:
+      - inception
+    restart: always
+    ports:
+      - "8082:80"
+
+  monitoring:
+    build:
+      context: requirements/monitoring
+      dockerfile: Dockerfile
+    container_name: monitoring
+    networks:
+      - inception
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/abkhefif/data/wordpress'
+  mariadb:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/abkhefif/data/mariadb'
+#  portainer_data:
+
+networks:
+  inception:
+    name: inception
+    driver: bridge

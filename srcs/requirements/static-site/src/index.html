@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inception - 42 Project Overview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #1e3d59;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <!-- START: You can modify content below -->
+
+  <h1>Inception Project - 42</h1>
+
+  <section>
+    <h2>Project Summary</h2>
+    <p>
+      The Inception project is an introduction to system administration, containerization, and DevOps best practices. 
+      You're tasked with building your own infrastructure using <strong>Docker</strong> and <strong>Docker Compose</strong>. 
+      Each component (Nginx, WordPress, MariaDB, Redis, etc.) runs in its own container, isolated and secure.
+    </p>
+    <p>
+      🛠️ Think of it like building your own digital house — every service is a room, and Docker Compose is your floor plan.
+    </p>
+  </section>
+
+  <section>
+    <h2>Nginx</h2>
+    <p>
+      Nginx is a web server and reverse proxy. It handles HTTPS connections and forwards user requests to the appropriate containers.
+    </p>
+    <p>
+      🔍 Analogy: Nginx is the receptionist that guides visitors to the right room while checking their ID (SSL certificate).
+    </p>
+  </section>
+
+  <section>
+    <h2>Redis</h2>
+    <p>
+      Redis is a fast, in-memory caching system. It stores temporary data like sessions or query results to reduce load on the database.
+    </p>
+    <p>
+      🔍 Analogy: Redis is a whiteboard with quick notes — instead of asking the database every time, we look here first.
+    </p>
+  </section>
+
+  <section>
+    <h2>Adminer</h2>
+    <p>
+      Adminer is a web interface to manage your MariaDB database. It helps you view, create, and delete tables or records.
+    </p>
+    <p>
+      🔍 Analogy: Adminer is the dashboard that lets you control and inspect your database without needing command-line tools.
+    </p>
+  </section>
+
+  <section>
+    <h2>FTP (vsftpd)</h2>
+    <p>
+      FTP allows file transfer between your machine and the server. In this project, it's configured with TLS for security.
+    </p>
+    <p>
+      🔍 Analogy: FTP is like a secure locker room where you can store and retrieve files safely.
+    </p>
+  </section>
+
+  <section>
+    <h2>About This Site</h2>
+    <p>
+      This is a static HTML site hosted by Nginx. It contains information about each service in the Inception project. 
+      It doesn’t use a database or backend — just HTML and CSS.
+    </p>
+    <p>
+      🔍 Analogy: It’s like a printed brochure – simple, fast, and easy to read.
+    </p>
+  </section>
+
+  <!-- END: You can modify content above -->
+</body>
+</html>
